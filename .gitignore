@@ -1,0 +1,22 @@
+# Ignore build artifacts
+build/
+*.obj
+*.pdb
+*.exe
+
+# Ignore JUCE/External Libraries
+libs/
+
+# Ignore CMake intermediate files
+CMakeCache.txt
+CMakeFiles/
+*.cmake
+
+# Ignore IDE stuff
+.vscode/
+*.sln
+*.vcxproj*
+
+node_modules/
+
+.idea/
