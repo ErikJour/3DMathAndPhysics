@@ -2,10 +2,11 @@ import * as THREE from "Three";
 
 //Scene Setup
 const scene = new THREE.Scene();
+scene.background = new THREE.Color("#6E8D90")
 
 const sizes = {
-    width: 1080,
-    height: 596
+    width: window.innerWidth,
+    height: window.innerHeight
 };
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width, sizes.height);
