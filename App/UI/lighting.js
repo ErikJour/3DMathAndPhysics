@@ -6,7 +6,7 @@ export function initLighting(scene) {
     scene.add(ambientLight);
 
 // Directional light
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
     directionalLight.position.set(2, 2, - 1)
     scene.add(directionalLight)
 
