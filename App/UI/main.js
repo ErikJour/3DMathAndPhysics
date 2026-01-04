@@ -2,12 +2,14 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {initLighting} from "./lighting";
 import {initLevel} from "./level";
+import {neutraColors} from "./colors";
 
 //Canvas
 const canvas = document.querySelector('canvas.webgl');
 
 //Scene Setup
 const scene = new THREE.Scene();
+scene.background = neutraColors.oliveBrown;
 
 //Sizes
 const sizes = {

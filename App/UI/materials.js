@@ -6,6 +6,7 @@ export const mathMaterials = {
             color: neutraColors.terracotta
          }),
             threeMaterial: new THREE.MeshStandardMaterial({
-                roughness: 0.7
+                roughness: 0.7,
+                color: neutraColors.charcoalGray
             })
 }

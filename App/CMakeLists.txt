@@ -30,7 +30,9 @@ target_sources(MathAndPhysics
         Source/PluginProcessor.cpp
 )
 
-target_include_directories(MathAndPhysics PRIVATE include Source)
+target_include_directories(MathAndPhysics
+        PRIVATE include Source
+)
 
 target_link_libraries(MathAndPhysics
         PRIVATE
