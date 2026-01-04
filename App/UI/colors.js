@@ -1,4 +1,4 @@
-import * as THREE from 'Three'
+import * as THREE from 'three'
 
 export const neutraColors = {
     neutraBeige: new THREE.Color("#D9D4C5"),

@@ -1,45 +1,66 @@
-import * as THREE from "Three";
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {initLighting} from "./lighting";
 import {initLevel} from "./level";
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+//Canvas
+const canvas = document.querySelector('canvas.webgl');
 
 //Scene Setup
 const scene = new THREE.Scene();
 
+//Sizes
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
 };
 
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
-scene.add(camera);
-camera.position.set(0, 0, 0);
+window.addEventListener('resize', () =>
+{
+    // Update sizes
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    // Update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+
+    // Update renderer
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
+
+//Camera
+// Base camera
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+camera.position.x = 1
+camera.position.y = 1
+camera.position.z = 2
+scene.add(camera)
+
+//Initialize Objects
+initLighting(scene);
+initLevel(scene);
 
 
-const canvas = document.querySelector('canvas.webgl');
+// Controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true
+
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true
-});
-
+    canvas: canvas
+})
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-// Controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true
-
-//Initialize Objects
-initLighting(scene);
-initLevel(scene);
-
+//Clock
 const clock = new THREE.Clock()
 
-function animate() {
+const tick = () =>
+{
     const elapsedTime = clock.getElapsedTime()
 
     // Update controls
@@ -49,9 +70,9 @@ function animate() {
     renderer.render(scene, camera)
 
     // Call tick again on the next frame
-    window.requestAnimationFrame(animate)
+    window.requestAnimationFrame(tick)
 }
 
-animate()
+tick()
 
 

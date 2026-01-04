@@ -1,4 +1,4 @@
-import * as THREE from 'Three'
+import * as THREE from 'three'
 import {neutraColors} from "./colors";
 
 export function initLighting(scene) {
