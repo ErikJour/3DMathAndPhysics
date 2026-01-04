@@ -10,7 +10,6 @@ const canvas = document.querySelector('canvas.webgl');
 
 //Scene Setup
 const scene = new THREE.Scene();
-scene.background = neutraColors.oliveBrown;
 
 //Sizes
 const sizes = {
@@ -36,9 +35,9 @@ window.addEventListener('resize', () =>
 //Camera
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 1
-camera.position.y = 1
-camera.position.z = 2
+camera.position.x = 0
+camera.position.y = 3
+camera.position.z = -10
 scene.add(camera)
 
 //Initialize Objects
@@ -59,12 +58,21 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
+//Movement Bounds
+const movementBounds = {
+    minZ: -20,
+    maxZ:   5,
+};
+
 //Clock
 const clock = new THREE.Clock()
 
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    camera.position.z = THREE.MathUtils.clamp(camera.position.z, movementBounds.minZ, movementBounds.maxZ);
+
 
     // Update controls
     controls.update()
