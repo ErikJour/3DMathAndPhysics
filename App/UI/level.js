@@ -10,15 +10,13 @@ let levelGroup = null;
 
 export function initLevel(scene) {
 
-    const groupedLevel = new THREE.Group();
-    levelGroup = groupedLevel;
+    levelGroup = new THREE.Group();
     let floor;
     function createWall(width, thickness, height) {
         let floor = new THREE.BoxGeometry(width,
             thickness,
             height);
-        const floorMesh = new THREE.Mesh(floor, mathMaterials.threeMaterial);
-        floor = floorMesh;
+        floor = new THREE.Mesh(floor, mathMaterials.threeMaterial);
         floor.receiveShadow = true;
         return floor;
     }

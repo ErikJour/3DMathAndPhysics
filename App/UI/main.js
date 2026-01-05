@@ -3,6 +3,8 @@ import {initLighting} from "./lighting";
 import {initLevel} from "./level";
 import {neutraColors} from "./colors";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import {initializeObjects} from "./objects";
+import {animateSpeed} from "./basicMotion";
 
 //Canvas
 const canvas = document.querySelector('canvas.webgl');
@@ -42,8 +44,9 @@ scene.add(camera)
 //Initialize Objects
 initLighting(scene);
 initLevel(scene);
+const testSphere = initializeObjects(scene);
 
-
+scene.add(testSphere);
 // Controls
 const movementControls = new OrbitControls(camera, canvas);
 movementControls.enableDamping = true
@@ -54,6 +57,7 @@ movementControls.enableDamping = true;
 movementControls.dampingFactor = 0.9;
 movementControls.panSpeed = 0.65;
 movementControls.enabled = true;
+
 
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
@@ -82,9 +86,9 @@ const tick = () =>
     camera.position.z = THREE.MathUtils.clamp(camera.position.z, movementBounds.minZ, movementBounds.maxZ);
     camera.position.y = THREE.MathUtils.clamp(camera.position.y, movementBounds.minY, movementBounds.maxY);
 
-
     // Update controls
     movementControls.update()
+    // animateSpeed(testSphere, -3.5, 3.5, elapsedTime);
 
     // Render
     renderer.render(scene, camera)
