@@ -18,6 +18,7 @@ export function initializeObjects(scene) {
     const sphereObject = new THREE.SphereGeometry(ballRadius, 32, 32);
     const sphereMesh = new THREE.Mesh(sphereObject, mathMaterials.floorMaterial)
     sphereMesh.position.set(positionBegin, testHeight, 1);
+    sphereMesh.castShadow = true;
     physicsObjects.sphere = sphereMesh;
     scene.add(physicsObjects.sphere);
 
