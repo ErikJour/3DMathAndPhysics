@@ -4,15 +4,12 @@ export function animateSpeed(object, initX, endX, time){
 
     if (object.position.x < endX) {
 
-        object.position.x = initX * time;
+        object.position.x = (1 - initX) * time;
     }
 
-    else if (object.position.x >= endX) {
+    else if (object.position.x === endX) {
 
-        object.position.x = initX;
+    return time;
+
     }
-
-    console.log(object.position.x);
-
-
 }

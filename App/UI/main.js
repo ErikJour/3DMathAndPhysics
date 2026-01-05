@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import {initLighting} from "./lighting";
 import {initLevel} from "./level";
-import {neutraColors} from "./colors";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {initializeObjects} from "./objects";
 import {animateSpeed} from "./basicMotion";
@@ -79,6 +78,8 @@ const movementBounds = {
 //Clock
 const clock = new THREE.Clock()
 
+let time = null;
+
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
@@ -88,7 +89,8 @@ const tick = () =>
 
     // Update controls
     movementControls.update()
-    // animateSpeed(testSphere, -3.5, 3.5, elapsedTime);
+    time = animateSpeed(testSphere, -3.5, 3.5, elapsedTime);
+    console.log(time);
 
     // Render
     renderer.render(scene, camera)
