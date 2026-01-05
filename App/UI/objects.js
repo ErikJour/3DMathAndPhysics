@@ -1,16 +1,32 @@
 import * as THREE from 'three'
 import {mathMaterials} from "./materials";
-import {animateSpeed} from "./basicMotion";
+
+const ballRadius = 0.5;
+const buttonRadius = 0.15;
 
 let testHeight = 3;
 let positionBegin = -3.5;
 let endPosition = 3.5;
 
+export const physicsObjects = {
+    objectGroup: null,
+    sphere: null
+};
+
 export function initializeObjects(scene) {
-    const sphereObject = new THREE.SphereGeometry(1, 32, 32 );
+    //Physic ball
+    const sphereObject = new THREE.SphereGeometry(ballRadius, 32, 32);
     const sphereMesh = new THREE.Mesh(sphereObject, mathMaterials.floorMaterial)
     sphereMesh.position.set(positionBegin, testHeight, 1);
-    scene.add(sphereMesh);
-    return sphereMesh;
+    physicsObjects.sphere = sphereMesh;
+    scene.add(physicsObjects.sphere);
+
+    //Click Button
+    const redButton = new THREE.SphereGeometry(buttonRadius, 32, 32);
+    const buttonMesh = new THREE.Mesh(redButton, mathMaterials.redMaterial);
+    buttonMesh.position.set(-5.25, 0, -4.9)
+    scene.add(buttonMesh);
+
+
 }
 

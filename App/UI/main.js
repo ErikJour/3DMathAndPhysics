@@ -1,8 +1,7 @@
 import * as THREE from 'three'
 import {initLighting} from "./lighting";
 import {initLevel} from "./level";
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import {initializeObjects} from "./objects";
+import {initializeObjects, physicsObjects} from "./objects";
 import {animateSpeed} from "./basicMotion";
 
 //Canvas
@@ -36,26 +35,18 @@ window.addEventListener('resize', () =>
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
-camera.position.y = 3
+camera.rotation.y = Math.PI
+camera.position.y = 2
 camera.position.z = -10
 scene.add(camera)
 
 //Initialize Objects
 initLighting(scene);
 initLevel(scene);
-const testSphere = initializeObjects(scene);
+initializeObjects(scene);
 
-scene.add(testSphere);
-// Controls
-const movementControls = new OrbitControls(camera, canvas);
-movementControls.enableDamping = true
-movementControls.enableZoom = true;
-movementControls.enableRotate = true;
-movementControls.enablePan = true;
-movementControls.enableDamping = true;
-movementControls.dampingFactor = 0.9;
-movementControls.panSpeed = 0.65;
-movementControls.enabled = true;
+
+
 
 
 const renderer = new THREE.WebGLRenderer({
@@ -68,12 +59,12 @@ renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
 //Movement Bounds
-const movementBounds = {
-    minZ: -20,
-    maxZ:   5,
-    minY: 0,
-    maxY: 10
-};
+// const movementBounds = {
+//     minZ: -20,
+//     maxZ:   5,
+//     minY: 0,
+//     maxY: 10
+// };
 
 //Clock
 const clock = new THREE.Clock()
@@ -84,12 +75,8 @@ const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
-    camera.position.z = THREE.MathUtils.clamp(camera.position.z, movementBounds.minZ, movementBounds.maxZ);
-    camera.position.y = THREE.MathUtils.clamp(camera.position.y, movementBounds.minY, movementBounds.maxY);
 
-    // Update controls
-    movementControls.update()
-    time = animateSpeed(testSphere, -3.5, 3.5, elapsedTime);
+    time = animateSpeed(physicsObjects.sphere, -3.5, 3.5, elapsedTime);
     console.log(time);
 
     // Render
