@@ -10,7 +10,8 @@ let endPosition = 3.5;
 
 export const physicsObjects = {
     objectGroup: null,
-    sphere: null
+    sphere: null,
+    button: null
 };
 
 export function initializeObjects(scene) {
@@ -26,7 +27,9 @@ export function initializeObjects(scene) {
     const redButton = new THREE.SphereGeometry(buttonRadius, 32, 32);
     const buttonMesh = new THREE.Mesh(redButton, mathMaterials.redMaterial);
     buttonMesh.position.set(-5.25, 0, -4.9)
-    scene.add(buttonMesh);
+    physicsObjects.button = buttonMesh;
+
+    scene.add(physicsObjects.button);
 
 
 }
