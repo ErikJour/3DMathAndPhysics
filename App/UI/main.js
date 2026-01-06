@@ -40,6 +40,8 @@ camera.position.y = 2
 camera.position.z = -10
 scene.add(camera)
 
+let clicked = false;
+
 
 //Initialize Objects
 initLighting(scene);
@@ -50,11 +52,11 @@ initializeObjects(scene);
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-
 const raycastList = [
     physicsObjects.sphere,
     physicsObjects.button
 ];
+
 
 canvas.addEventListener("pointerdown", (event) => {
     const screen = canvas.getBoundingClientRect();
@@ -70,14 +72,9 @@ canvas.addEventListener("pointerdown", (event) => {
 
     if (obj === physicsObjects.button) {
         console.log("Clicked Button");
+        clicked = true;
     }
 });
-
-
-
-
-
-
 
 
 const renderer = new THREE.WebGLRenderer({
@@ -95,7 +92,7 @@ const clock = new THREE.Clock()
 
 let time = null;
 
-const tick = () =>
+const animate = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
@@ -106,9 +103,9 @@ const tick = () =>
     renderer.render(scene, camera)
 
     // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
+    window.requestAnimationFrame(animate)
 }
 
-tick()
+animate()
 
 
