@@ -40,8 +40,6 @@ camera.position.y = 2
 camera.position.z = -10
 scene.add(camera)
 
-let clicked = false;
-
 
 //Initialize Objects
 initLighting(scene);
@@ -57,6 +55,7 @@ const raycastList = [
     physicsObjects.button
 ];
 
+let clicked;
 
 canvas.addEventListener("pointerdown", (event) => {
     const screen = canvas.getBoundingClientRect();
@@ -76,6 +75,24 @@ canvas.addEventListener("pointerdown", (event) => {
     }
 });
 
+canvas.addEventListener("pointerup", (event) => {
+    const screen = canvas.getBoundingClientRect();
+    mouse.x = ((event.clientX - screen.left) / screen.width) * 2 - 1;
+    mouse.y = -((event.clientY - screen.top) / screen.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+
+    const hit = raycaster.intersectObjects(raycastList, false)[0];
+    if (!hit) return;
+
+    const obj = hit.object;
+
+    if (obj === physicsObjects.button) {
+        console.log("Clicked up Button");
+    }
+    clicked = false;
+});
+
 
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
@@ -90,14 +107,12 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap
 //Clock
 const clock = new THREE.Clock()
 
-let time = null;
-
 const animate = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
+    animateSpeed(physicsObjects.sphere, -3.5, 3.5, elapsedTime, clicked);
 
-    time = animateSpeed(physicsObjects.sphere, -3.5, 3.5, elapsedTime);
 
     // Render
     renderer.render(scene, camera)
