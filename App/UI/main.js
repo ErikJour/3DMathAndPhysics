@@ -109,10 +109,9 @@ const clock = new THREE.Clock()
 
 const animate = () =>
 {
-    const elapsedTime = clock.getElapsedTime()
+    const elapsedTime = clock.getElapsedTime();
 
     animateSpeed(physicsObjects.sphere, -3.5, 3.5, elapsedTime, clicked);
-
 
     // Render
     renderer.render(scene, camera)

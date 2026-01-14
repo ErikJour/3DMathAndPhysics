@@ -6,7 +6,6 @@ const buttonRadius = 0.15;
 
 let testHeight = 3;
 let positionBegin = -3.5;
-let endPosition = 3.5;
 
 export const physicsObjects = {
     objectGroup: null,
